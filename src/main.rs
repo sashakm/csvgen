@@ -6,7 +6,7 @@ use std::io;
 use std::process;
 use std::error::Error;
 
-use clap::{Arg, App, ArgMatches};
+use clap::{Arg, App};
 
 fn main() {
     let matches = App::new("csvgen")
@@ -17,7 +17,7 @@ fn main() {
                              .short("s")
                              .long("size")
                              .value_name("Size")
-                             .help("Specify size of file.")
+                             .help("Specify size of output file in MB.")
                              .required(true)
                              .takes_value(true)
                              )
@@ -25,8 +25,16 @@ fn main() {
                              .short("c")
                              .long("cols")
                              .value_name("Columns")
-                             .help("Specify number of columns.")
+                             .help("Specify a comma-separated list of column-headers.")
                              )
                         .get_matches();
-    println!("{:?}",matches);
+    
+    let size = matches.value_of("size").unwrap().parse::<u32>().unwrap()*1024*1024;
+    let cols: Vec<&str> = matches.value_of("columns")
+                                 .unwrap_or("foo,bar,baz")
+                                 .split(",")
+                                 .collect();
+
+    //let row_size: u32 = size / cols.iter().count();
+    println!("{:?},{:?}", size,cols);
 }
