@@ -1,5 +1,7 @@
 use clap::{Arg,App};
 
+const MB: u64 = 1024*1024;
+
 fn parse_args()
 {
     let matches = App::new("csvgen")
@@ -36,14 +38,18 @@ fn parse_args()
                             )
                         .get_matches();
     
-    let size = matches.value_of("size")
+    let size: u64 = matches.value_of("size")
                       .unwrap()
-                      .parse::<u64>()
-                      .expect("Value of size is not a number")
-                      *MiB;
+                      .parse::<u64>()?
+                      *MB;
 
-    let cols: Vec<&str> = matches.value_of("columns")
-                                 .unwrap_or("foo,bar,baz")
+    let headerVals: &str = matches.value_of("header-values")
+                             .unwrap_or("string,float,int")
+                             .parse::<&str>()?;
+
+    let colTypes: Vec<&str> = matches.value_of("column-types")
+                                 .unwrap_or("string,float,int")
+                                 .parse::<&str>()
                                  .split(",")
                                  .collect();
 }
