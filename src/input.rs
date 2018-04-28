@@ -1,10 +1,18 @@
-use clap::{Arg,App};
+use clap::{Arg,App,Error};
 
 const MB: u64 = 1024*1024;
 
-fn parse_args()
-{
-    let matches = App::new("csvgen")
+#[derive(Debug)]
+pub struct Parameters {
+    size: u64,
+    header_vals: String,
+    column_types: Vec<String>,
+    file_path: String,
+}
+
+impl Parameters {
+    pub fn new() -> Result<Parameters, Error> {
+        let matches = App::new("csvgen")
                         .version("0.1.0")
                         .author("jkm <jkm@bricknet.de>")
                         .about("Generate mock csv-files of arbitrary size.")
@@ -37,19 +45,25 @@ fn parse_args()
                              .takes_value(true)
                             )
                         .get_matches();
-    
-    let size: u64 = matches.value_of("size")
-                      .unwrap()
-                      .parse::<u64>()?
-                      *MB;
 
-    let headerVals: &str = matches.value_of("header-values")
-                             .unwrap_or("string,float,int")
-                             .parse::<&str>()?;
+        Ok(Parameters {
+            size: matches.value_of("size")
+                         .unwrap_or("2")
+                         .parse::<u64>().unwrap() * MB,
 
-    let colTypes: Vec<&str> = matches.value_of("column-types")
-                                 .unwrap_or("string,float,int")
-                                 .parse::<&str>()
-                                 .split(",")
-                                 .collect();
+            header_vals: String::from(
+                            matches.value_of("header-values")
+                                   .unwrap_or("string,float,int")),
+
+            column_types: matches.value_of("column-types")
+                                .unwrap_or("string,float,int")
+                                .split(",")
+                                .map(|v| String::from(v))
+                                .collect(),
+
+            file_path: String::from(
+                          matches.value_of("filepath")
+                                 .unwrap_or("stdout"))
+        })
+    }
 }
