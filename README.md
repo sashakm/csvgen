@@ -15,7 +15,7 @@ All commandline parameters are optional.
 - __header-values__: pass names for columns
 
   default: _string, float, int_
-- __header-types__: pass types for column values
+- __column-types__: pass types for column values
 
   default: _string, float, int_
 - __filepath__: write to provided path
