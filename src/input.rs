@@ -1,3 +1,4 @@
+#![crate_name = "csvgen"]
 use clap::{Arg,App,Error};
 
 ///MB to Byte
@@ -19,6 +20,12 @@ pub struct Parameters {
 }
 
 impl Parameters {
+    /// Returns a Result containing a Parameters-struct.
+    /// Fields are populated by parsing commandline parameters.
+    /// ```
+    /// use csvgen::Parameters
+    /// let params = Parameters::new();
+    /// ```
     pub fn new() -> Result<Parameters, Error> {
         let matches = App::new("csvgen")
                         .version("0.1.0")
