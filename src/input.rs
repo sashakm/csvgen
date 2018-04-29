@@ -1,13 +1,20 @@
 use clap::{Arg,App,Error};
 
+///MB to Byte
 const MB: u64 = 1024*1024;
 
 #[derive(Debug)]
+///This holds parsed commandline params.
 pub struct Parameters {
+    ///desired size of output
     size: u64,
+    ///toggle header printing
     header: bool,
+    ///custom header values
     header_vals: String,
+    ///custom column types
     column_types: Vec<String>,
+    ///write output to this file
     file_path: String,
 }
 
