@@ -5,6 +5,7 @@ const MB: u64 = 1024*1024;
 #[derive(Debug)]
 pub struct Parameters {
     size: u64,
+    header: bool,
     header_vals: String,
     column_types: Vec<String>,
     file_path: String,
@@ -23,6 +24,12 @@ impl Parameters {
                              .help("Specify size of output file in MB.")
                              .takes_value(true)
                              )
+                        .arg(Arg::with_name("header")
+                             .short("h")
+                             .long("header")
+                             .value_name("Header")
+                             .help("Print column headers.")
+                            )
                         .arg(Arg::with_name("header-values")
                              .short("v")
                              .long("header-values")
@@ -49,7 +56,13 @@ impl Parameters {
         Ok(Parameters {
             size: matches.value_of("size")
                          .unwrap_or("2")
-                         .parse::<u64>().unwrap() * MB,
+                         .parse::<u64>()
+                         .unwrap() * MB,
+
+            header: matches.value_of("header")
+                           .unwrap_or("false")
+                           .parse::<bool>()
+                           .unwrap(),
 
             header_vals: String::from(
                             matches.value_of("header-values")
