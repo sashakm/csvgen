@@ -1,4 +1,3 @@
-#![crate_name = "csvgen"]
 use clap::{Arg,App,Error};
 
 ///MB to Byte

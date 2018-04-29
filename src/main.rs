@@ -1,3 +1,4 @@
+#![crate_name = "csvgen"]
 extern crate clap;
 
 mod input;
