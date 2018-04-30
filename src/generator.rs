@@ -1,6 +1,3 @@
-use time::PreciseTime;
-use rand;
-
 const DEFAULT_FLOAT: f64 = 3.1415;
 const DEFAULT_SCHTRING: &str = "test";
 const DEFAULT_INT: usize = 42;
