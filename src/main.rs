@@ -11,6 +11,10 @@ use input::Parameters;
 mod generator;
 use generator::CsvLine;
 
+///MB to Byte
+pub const MB: usize = 1024*1024;
+
+
 fn main() {
     let params: Box<Parameters> = Box::new(Parameters::new().unwrap());
     let line = CsvLine::new(&params.column_types)
