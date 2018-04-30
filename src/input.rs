@@ -5,7 +5,7 @@ use clap::{Arg,App,Error};
 ///This holds parsed commandline params.
 pub struct Parameters {
     ///desired size of output
-    size: usize,
+    pub size: usize,
     ///toggle header printing
     header: bool,
     ///custom header values
