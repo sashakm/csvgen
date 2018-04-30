@@ -1,7 +1,5 @@
 use clap::{Arg,App,Error};
 
-///MB to Byte
-const MB: usize = 1024*1024;
 
 #[derive(Debug)]
 ///This holds parsed commandline params.
@@ -70,7 +68,7 @@ impl Parameters {
             size: matches.value_of("size")
                          .unwrap_or("2")
                          .parse::<usize>()
-                         .unwrap() * MB,
+                         .unwrap(),
 
             header: matches.value_of("header")
                            .unwrap_or("false")
