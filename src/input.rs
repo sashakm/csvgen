@@ -13,7 +13,7 @@ pub struct Parameters {
     ///custom header values
     header_vals: String,
     ///custom column types
-    column_types: Vec<String>,
+    pub column_types: Vec<String>,
     ///write output to this file
     file_path: String,
 }
