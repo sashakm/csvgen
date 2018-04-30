@@ -1,13 +1,13 @@
 use clap::{Arg,App,Error};
 
 ///MB to Byte
-const MB: u64 = 1024*1024;
+const MB: usize = 1024*1024;
 
 #[derive(Debug)]
 ///This holds parsed commandline params.
 pub struct Parameters {
     ///desired size of output
-    size: u64,
+    size: usize,
     ///toggle header printing
     header: bool,
     ///custom header values
@@ -69,7 +69,7 @@ impl Parameters {
         Ok(Parameters {
             size: matches.value_of("size")
                          .unwrap_or("2")
-                         .parse::<u64>()
+                         .parse::<usize>()
                          .unwrap() * MB,
 
             header: matches.value_of("header")
