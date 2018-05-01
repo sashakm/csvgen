@@ -29,13 +29,12 @@ fn main() {
     if &params.size > &MAX_SIZE {
         panic!("Requested output is too large.")
     }
-    let output_limit: usize = &params.size * &MB;
-    let col_types: Vec<String> = params.column_types;
     for num in 1..THREAD_NUM {
         thread::spawn(move || {
             let mut output_counter: usize = 0;
+            let output_limit: usize = &params.size * &MB;
             while &output_counter < &output_limit {
-                    let line = CsvLine::new(col_types)
+                    let line = CsvLine::new(&params.column_types)
                                     .line_value;
                 output_counter += write_stdout(&line).unwrap();
             }
