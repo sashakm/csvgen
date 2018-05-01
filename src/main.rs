@@ -11,10 +11,15 @@ use input::Parameters;
 mod generator;
 use generator::CsvLine;
 
+mod output;
+use output::write_stdout;
+
+use std::thread;
+
 ///MB to Byte
 const MB: usize = 1024*1024;
 ///Threading threshold
-const THRESHOLD: usize = 5;
+const THREAD_NUM: usize = 5;
 ///Max size of output-file
 const MAX_SIZE: usize = 100;
 
@@ -24,8 +29,16 @@ fn main() {
     if &params.size > &MAX_SIZE {
         panic!("Requested output is too large.")
     }
-    if &params.size < &THRESHOLD {
-        let line = CsvLine::new(&params.column_types)
-                            .line_value;
+    let output_limit: usize = &params.size * &MB;
+    let col_types: Vec<String> = params.column_types;
+    for num in 1..THREAD_NUM {
+        thread::spawn(move || {
+            let mut output_counter: usize = 0;
+            while &output_counter < &output_limit {
+                    let line = CsvLine::new(col_types)
+                                    .line_value;
+                output_counter += write_stdout(&line).unwrap();
+            }
+        });
     }
 }
