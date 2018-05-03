@@ -1,7 +1,7 @@
 use clap::{Arg,App,Error};
 
 
-#[derive(Debug)]
+#[derive(Debug,Clone)]
 ///This holds parsed commandline params.
 pub struct Parameters {
     ///desired size of output
@@ -75,9 +75,9 @@ impl Parameters {
                            .parse::<bool>()
                            .unwrap(),
 
-            header_vals: String::from(
-                            matches.value_of("header-values")
-                                   .unwrap_or("string,float,int")),
+            header_vals: matches.value_of("header-values")
+                                .unwrap_or("string,float,int")
+                                .to_owned(),
 
             column_types: matches.value_of("column-types")
                                 .unwrap_or("string,float,int")
@@ -85,9 +85,9 @@ impl Parameters {
                                 .map(|v| String::from(v))
                                 .collect(),
 
-            file_path: String::from(
-                          matches.value_of("filepath")
-                                 .unwrap_or("stdout"))
+            file_path: matches.value_of("filepath")
+                                 .unwrap_or("stdout")
+                                 .to_owned(),
         })
     }
 }
