@@ -38,10 +38,10 @@ mod tests {
         use output::{setup_outfile,append_work_file,write_stdout};
         use std::path::Path;
         use std::io::prelude::*;
-        use std::fs::File;
+        use std::fs::{self,File};
 
-        let outfile = setup_outfile("./foobar.csv").unwrap();
-        assert!(Path::new("./foobar.csv").is_file());
+        let outfile = setup_outfile("/tmp/foobar.csv").unwrap();
+        assert!(Path::new("/tmp/foobar.csv").is_file());
         let teststring: &str = "teststring";
         append_work_file(&teststring, &outfile).expect("Could not write to file!");
         let mut testfile = File::open(&outfile).unwrap();
@@ -50,5 +50,6 @@ mod tests {
         assert_eq!(&teststring, &written_string);
         let written_to_stdout = write_stdout(&teststring).unwrap();
         assert_eq!(&teststring.as_bytes().len(),&written_to_stdout);
+        fs::remove_file(&outfile).unwrap();
     }
 }
