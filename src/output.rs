@@ -1,20 +1,25 @@
 use std::io::{self, Write};
 use std::fs;
+use std::path::Path;
 
-pub fn write_stdout(line: &str) -> Result<usize, io::Error> {
-    let stdout = io::stdout();
-    let mut handle =stdout.lock();
-    let written: usize = handle.write(line.as_bytes())?;
+pub fn setup_outfile(filepath: &str) -> Result<&Path, io::Error>
+{
+    let f_path = Path::new(filepath);
+    if f_path.is_file() {
+        //TODO: Ask the user if wiping an existing file if exists is fine.
+        panic!("Target file path already exists. Quitting.");
+    }
+    let outfile: fs::File = fs::File::create(filepath)?;
+    Ok(f_path)
+}
+
+pub fn write_stdout(line: &str) -> Result<usize, io::Error>
+{
+    let written: usize = io::stdout().write(&line.as_bytes())?;
     Ok(written)
 }
 
-fn setup_work_file(filepath: &str) -> Result<&str, io::Error>
-{
-    fs::create_dir_all(filepath)?;
-    Ok(filepath)
-}
-
-fn append_work_file(line: &str, filename: &str) -> Result<usize, io::Error>
+pub fn append_work_file(line: &str, filename: &Path) -> Result<usize, io::Error>
 {
     let file = fs::OpenOptions::new()
                                 .append(true)
