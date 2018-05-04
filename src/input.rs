@@ -93,7 +93,7 @@ impl Parameters {
 }
 
 #[cfg(test)]
-mod input {
+mod tests {
     #[test]
     fn test_parameters() {
         use input::Parameters;
