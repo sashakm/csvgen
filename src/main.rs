@@ -32,7 +32,6 @@ fn main() {
     if &params.size > &MAX_SIZE {
         panic!("Requested output is too large.")
     }
-<<<<<<< HEAD
 
     let (sender, receiver) = mpsc::channel();
     let work_done = Arc::new(AtomicBool::new(false));
@@ -68,13 +67,5 @@ fn main() {
     work_done.store(true, Ordering::Relaxed);
     for w in workers {
         w.join().unwrap();
-=======
-    let mut output_counter: usize = 0;
-    let output_limit: usize = &params.size * &MB;
-    while &output_counter < &output_limit {
-        let line = CsvLine::new(&params.column_types)
-                            .line_value;
-        output_counter += write_stdout(&line).unwrap();
->>>>>>> master
     }
 }
