@@ -1,5 +1,8 @@
 # csvgen
 
+[![codecov](https://codecov.io/gh/joppich/csvgen/branch/master/graph/badge.svg)](https://codecov.io/gh/joppich/csvgen)
+[![Build Status](https://travis-ci.com/joppich/csvgen.svg?branch=travis)](https://travis-ci.com/joppich/csvgen)
+
 a small utility to create mock-csv files with various datatypes.
 
 ## commandline parameters
