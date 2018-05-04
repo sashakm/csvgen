@@ -35,7 +35,7 @@ pub fn append_work_file(line: &str, filename: &Path) -> Result<usize, io::Error>
 mod tests {
     #[test]
     fn test_create_and_write_outfile() {
-        use output::{setup_outfile,append_work_file};
+        use output::{setup_outfile,append_work_file,write_stdout};
         use std::path::Path;
         use std::io::prelude::*;
         use std::fs::File;
@@ -48,5 +48,7 @@ mod tests {
         let mut written_string = String::new();
         &testfile.read_to_string(&mut written_string);
         assert_eq!(&teststring, &written_string);
+        let written_to_stdout = write_stdout(&teststring).unwrap();
+        assert_eq!(&teststring.as_bytes().len(),&written_to_stdout);
     }
 }
