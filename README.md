@@ -14,9 +14,6 @@ All commandline parameters are optional.
   default: _2 MB_
 - __header__: create column headers
 
-  default: _false_
-- __header-values__: pass names for columns
-
   default: _string, float, int_
 - __column-types__: pass types for column values
 
