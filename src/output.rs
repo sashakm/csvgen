@@ -9,7 +9,7 @@ pub fn setup_outfile(filepath: &str) -> Result<&Path, io::Error>
         //TODO: Ask the user if wiping an existing file if exists is fine.
         panic!("Target file path already exists. Quitting.");
     }
-    let outfile: fs::File = fs::File::create(filepath)?;
+    let _outfile: fs::File = fs::File::create(filepath)?;
     Ok(f_path)
 }
 
