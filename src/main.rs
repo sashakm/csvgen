@@ -38,7 +38,7 @@ fn main() {
 
     let mut workers: Vec<thread::JoinHandle<()>> = Vec::with_capacity(THREAD_NUM);
     let size_in_byte = (&params.size*&MB) / &THREAD_NUM;
-    for num in 1..THREAD_NUM+1 {
+    for _num in 1..THREAD_NUM+1 {
         let column_types = params.column_types.clone();
         let tx = sender.clone();
         let stop = work_done.clone();
