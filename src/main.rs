@@ -69,3 +69,13 @@ fn main() {
         w.join().unwrap();
     }
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_main() {
+        use main;
+
+        main();
+    }
+}
