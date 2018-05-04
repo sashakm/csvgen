@@ -7,9 +7,7 @@ pub struct Parameters {
     ///desired size of output
     pub size: usize,
     ///toggle header printing
-    header: bool,
-    ///custom header values
-    header_vals: String,
+    pub header: bool,
     ///custom column types
     pub column_types: Vec<String>,
     ///write output to this file
@@ -40,14 +38,8 @@ impl Parameters {
                              .long("header")
                              .value_name("Header")
                              .help("Print column headers.")
+                             .takes_value(false)
                             )
-                        .arg(Arg::with_name("header-values")
-                             .short("v")
-                             .long("header-values")
-                             .value_name("Header Values")
-                             .help("Specify a string of comma-separated values to set header-names.")
-                             .takes_value(true)
-                             )
                         .arg(Arg::with_name("column-types")
                              .short("c")
                              .long("column-types")
@@ -74,10 +66,6 @@ impl Parameters {
                            .unwrap_or("false")
                            .parse::<bool>()
                            .unwrap(),
-
-            header_vals: matches.value_of("header-values")
-                                .unwrap_or("string,float,int")
-                                .to_owned(),
 
             column_types: matches.value_of("column-types")
                                 .unwrap_or("string,float,int")
