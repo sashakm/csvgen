@@ -52,3 +52,18 @@ impl CsvLine {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_csv_line_generation() {
+        use generator::{CsvLine,DEFAULT_FLOAT,DEFAULT_INT,DEFAULT_SCHTRING};
+
+        let test_types = Vec::from(vec!["string".to_owned(),"int".to_owned(),"float".to_owned()]);
+        let test_line = CsvLine::new(&test_types);
+        let validate_types = format!("{},{},{}\n", &DEFAULT_SCHTRING
+                                               , &DEFAULT_INT
+                                               , &DEFAULT_FLOAT);
+        assert_eq!(test_line.line_value,validate_types);
+    }
+}
