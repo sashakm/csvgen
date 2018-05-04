@@ -9,7 +9,8 @@ pub fn setup_outfile(filepath: &str) -> Result<&Path, io::Error>
         //TODO: Ask the user if wiping an existing file if exists is fine.
         panic!("Target file path already exists. Quitting.");
     }
-    let outfile: fs::File = fs::File::create(filepath)?;
+    //TODO: In a future version, open file and pass back file-handle to calller
+    let _outfile: fs::File = fs::File::create(filepath)?;
     Ok(f_path)
 }
 
@@ -28,4 +29,27 @@ pub fn append_work_file(line: &str, filename: &Path) -> Result<usize, io::Error>
     let written: usize = handle.write(line.as_bytes())?;
 
     Ok(written)
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_create_and_write_outfile() {
+        use output::{setup_outfile,append_work_file,write_stdout};
+        use std::path::Path;
+        use std::io::prelude::*;
+        use std::fs::{self,File};
+
+        let outfile = setup_outfile("/tmp/foobar.csv").unwrap();
+        assert!(Path::new("/tmp/foobar.csv").is_file());
+        let teststring: &str = "teststring";
+        append_work_file(&teststring, &outfile).expect("Could not write to file!");
+        let mut testfile = File::open(&outfile).unwrap();
+        let mut written_string = String::new();
+        &testfile.read_to_string(&mut written_string);
+        assert_eq!(&teststring, &written_string);
+        let written_to_stdout = write_stdout(&teststring).unwrap();
+        assert_eq!(&teststring.as_bytes().len(),&written_to_stdout);
+        fs::remove_file(&outfile).unwrap();
+    }
 }
