@@ -88,7 +88,6 @@ mod tests {
         let params = Parameters::new().expect("Could not parse parameters!");
         assert_eq!(params.file_path,String::from("stdout"));
         assert_eq!(params.column_types.len(),3);
-        assert_eq!(params.header_vals,String::from("string,float,int"));
         assert_eq!(params.header,false);
         assert_eq!(params.size,2);
     }
