@@ -1,3 +1,5 @@
+use rand::{Rng, thread_rng};
+
 const DEFAULT_FLOAT: f64 = 3.1415;
 const DEFAULT_SCHTRING: &str = "test";
 const DEFAULT_INT: usize = 42;
@@ -29,12 +31,18 @@ impl Cell {
     pub fn new(c_type: CellType) -> Cell {
         Cell {
             cell_value: match c_type {
-                CellType::Float => DEFAULT_FLOAT.to_string(),
+                CellType::Float => {
+                    let r_val: f64 = thread_rng().gen();
+                    String::from(format!("{}", r_val))
+                    },
                 CellType::Schtring => String::from(DEFAULT_SCHTRING),
-                CellType::Int => DEFAULT_INT.to_string(),
+                CellType::Int => { 
+                    let r_val: isize = thread_rng().gen();
+                    String::from(format!("{}",r_val))
+                 },
             }
         }
-    } 
+    }
 }
 
 impl CsvLine {
