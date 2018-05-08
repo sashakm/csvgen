@@ -1,6 +1,6 @@
 [package]
 name = "csvgen"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["joppich <joppich@bricknet.de>"]
 description = "small utility to create mock-csvfiles."
 license = "BSD-3-Clause"
@@ -9,5 +9,4 @@ readme = "README.md"
 
 [dependencies]
 clap = "2.30.0"
-time = "0.1.39"
 rand = "0.5.0-pre.1"

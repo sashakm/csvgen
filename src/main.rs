@@ -3,7 +3,6 @@
 
 extern crate clap;
 extern crate rand;
-extern crate time;
 
 mod input;
 use input::Parameters;
