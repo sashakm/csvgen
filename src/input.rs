@@ -18,7 +18,7 @@ impl Parameters {
     /// Returns a Result containing a Parameters-struct.
     /// Fields are populated by parsing commandline parameters.
     /// ```
-    /// use csvgen::Parameters
+    /// use csvgen::input::Parameters;
     /// let params = Parameters::new();
     /// ```
     pub fn new() -> Result<Parameters, Error> {
