@@ -62,10 +62,7 @@ impl Parameters {
                          .parse::<usize>()
                          .unwrap(),
 
-            header: matches.value_of("header")
-                           .unwrap_or("false")
-                           .parse::<bool>()
-                           .unwrap(),
+            header: matches.is_present("header"),
 
             column_types: matches.value_of("column-types")
                                 .unwrap_or("string,float,int")
