@@ -4,7 +4,8 @@ version = "0.1.0"
 authors = ["joppich <joppich@bricknet.de>"]
 description = "small utility to create mock-csvfiles."
 license = "BSD-3-Clause"
-crate-type = ["bin"]
+repository = "https://github.com/joppich/csvgen"
+readme = "README.md"
 
 [dependencies]
 clap = "2.30.0"
