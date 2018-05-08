@@ -1,19 +1,17 @@
 use rand::{Rng, thread_rng};
 
-const DEFAULT_FLOAT: f64 = 3.1415;
-const DEFAULT_SCHTRING: &str = "test";
-const DEFAULT_INT: usize = 42;
+const STR_SOURCE: &[&str] = &["kettle", "compare", "two", "pump", "sofa", "grateful", "thank", "tame", "warlike", "cute", "cooing", "overflow", "tail", "juice", "downtown", "modern", "agree", "dress", "memorise", "pass", "blow", "knowing", "crush", "slippery", "fasten", "faded", "various", "consider", "drawer", "explain", "burn", "smile", "found", "filthy", "wink", "pleasure", "jog", "flashy", "trip", "vegetable"];
 
 enum CellType {
     /// Supported Types for column-cells
     Float,
-    Schtring,
+    Str,
     Int
 }
 
 struct Cell {
     /// Represents one cell in a row
-    cell_value: String,
+    cell_value: String
 }
 
 pub struct CsvLine {
@@ -32,12 +30,21 @@ impl Cell {
         Cell {
             cell_value: match c_type {
                 CellType::Float => {
-                    let r_val: f64 = thread_rng().gen();
+                    // TODO: allow user-provided range parameters
+                    let r_val: f64 = thread_rng().gen_range(-429.842,765.123);
                     String::from(format!("{}", r_val))
                     },
-                CellType::Schtring => String::from(DEFAULT_SCHTRING),
+                CellType::Str => {
+                    let mut rng = thread_rng();
+                    let mut r_val: Vec<&str> = Vec::new();
+                    for _s in 0..rng.gen_range(1,5) {
+                        r_val.push(rng.choose(&STR_SOURCE).unwrap());
+                    }
+                    String::from(r_val.join(" "))
+                    },
                 CellType::Int => { 
-                    let r_val: isize = thread_rng().gen();
+                    // TODO: allow user-provided range parameters
+                    let r_val: isize = thread_rng().gen_range(-2e6,2e6) as isize;
                     String::from(format!("{}",r_val))
                  },
             }
@@ -58,7 +65,7 @@ impl CsvLine {
         let mut val: String = String::new();
         for (cell_num, lt) in l_types.iter().enumerate() {
             let t: CellType = match lt.as_ref() {
-                "string" => CellType::Schtring,
+                "string" => CellType::Str,
                 "int" => CellType::Int,
                 "float" => CellType::Float,
                 _ => panic!("Failed to determine cell type.")
