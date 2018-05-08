@@ -53,12 +53,20 @@ fn main() {
 
     let mut output_counter: usize = 0;
     if &params.file_path == "stdout" {
+        if params.header {
+            let header_line: &str = &format!("{}\n",&params.column_types.join(","));
+            write_stdout(&header_line).unwrap();
+        }
         while &output_counter < &size_in_byte {
             let line: &str = &receiver.recv().unwrap();
             output_counter += write_stdout(&line).unwrap();
         }
     } else {
         let filepath: &Path = setup_outfile(&params.file_path).unwrap();
+        if params.header {
+            let header_line: &str = &format!("{}\n",&params.column_types.join(","));
+            append_work_file(&header_line, &filepath).unwrap();
+        }
         while &output_counter < &size_in_byte {
             let line: &str = &receiver.recv().unwrap();
             output_counter += append_work_file(&line,&filepath).unwrap();
