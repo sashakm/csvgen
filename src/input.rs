@@ -25,7 +25,7 @@ impl Parameters {
         let matches = App::new("csvgen")
                         .version("0.1.0")
                         .author("jkm <jkm@bricknet.de>")
-                        .about("Generate mock csv-files of arbitrary size.")
+                        .about("Generate mock csv-files with various datatypes.")
                         .arg(Arg::with_name("size")
                              .short("s")
                              .long("size")
