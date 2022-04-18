@@ -8,5 +8,5 @@ repository = "https://github.com/joppich/csvgen"
 readme = "README.md"
 
 [dependencies]
-clap = "2.33.3"
+clap = "3.1.9"
 rand = "0.8.4"
